@@ -49,7 +49,7 @@ print("Resposta do modelo:", response.content)
 # Criação de um prompt template para estruturar a entrada do modelo
 prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "Você é um assistente útil. Responda todas as perguntas com precisão."),
+        ("system", "Você é um assistente útil. Responda todas as perguntas usando suas habilidades em {language}."),
         MessagesPlaceholder(variable_name="messages")  # Permite adicionar mensagens dinamicamente
     ]
 )
@@ -58,7 +58,7 @@ prompt = ChatPromptTemplate.from_messages(
 chain = prompt | model
 
 # Exemplo de interação usando o template
-chain.invoke({"messages": [HumanMessage(content="Oi, meu nome é Eduardo")]})
+chain.invoke({"messages": [HumanMessage(content="Oi, meu nome é Eduardo")], "language": "Inglês"})
 
 # Gerenciamento da memória do chatbot
 trimmer = trim_messages(
@@ -92,7 +92,7 @@ chain = (
 response = chain.invoke(
     {
         "messages": messages + [HumanMessage(content="Qual sorvete eu gosto?")],
-        "language": "Português"
+        "language": "Inglês"
     }
 )
 
